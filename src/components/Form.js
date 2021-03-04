@@ -19,13 +19,12 @@ class Form extends Component {
     generatePassword = (currentResult = '') => {
         const {chars, select, checkbox, symbols} = this.state;
 
-        if (checkbox === true) {
-            this.setState({chars: this.state.chars + symbols});
-        }
+        let addSymbols;
+        checkbox ? (addSymbols = chars + symbols) : (addSymbols = chars);
 
         for (let i = 0; i < Number.parseInt(select); i++) {
-            const randomNumber = Math.floor(Math.random() * chars.length);
-            currentResult += chars.substring(randomNumber, randomNumber + 1);
+            const randomNumber = Math.floor(Math.random() * addSymbols.length);
+            currentResult += addSymbols.substring(randomNumber, randomNumber + 1);
         }
         return currentResult;
     }
@@ -49,7 +48,7 @@ class Form extends Component {
 
     render () {
 
-        const {password, select, isSymbols, checkbox} = this.state;
+        const {password, select, checkbox} = this.state;
 
         return (
             <div className={styles.Form}>
